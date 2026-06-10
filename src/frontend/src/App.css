@@ -1,0 +1,66 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 1.5rem 2rem;
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.app-header p {
+  margin: 0.25rem 0 0;
+  color: #94a3b8;
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem;
+  background: #f1f5f9;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.panel {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+}
+
+.panel-error {
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.chart-placeholder {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.5rem;
+}
+
+.reading-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .app-main {
+    padding: 1rem;
+  }
+}
