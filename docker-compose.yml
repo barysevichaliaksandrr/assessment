@@ -1,0 +1,39 @@
+services:
+  weakapp:
+    build:
+      context: ./WeakApp
+    ports:
+      - "8080:8080"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  data-ingestor:
+    build:
+      context: ./src/backend/DataIngestor
+      dockerfile: Assessment.DataIngestor/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      WeakApp__BaseUrl: http://weakapp:8080
+      WeakApp__ApiKey: supersecret
+      WeakApp__PollIntervalSeconds: 30
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__Port: 5672
+      RabbitMQ__Username: guest
+      RabbitMQ__Password: guest
+      RabbitMQ__QueueName: meter.readings
+    depends_on:
+      weakapp:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
